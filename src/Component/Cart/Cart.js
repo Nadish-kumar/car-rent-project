@@ -15,7 +15,7 @@ const Cart = () => {
   }, [])
 
   const getonedata =  async() => {
-    var response  = await axios.get(`http://localhost:5000/car/${params.postid}`).then((res) => {return res.data})
+    var response  = await axios.get(`http://localhost:8001/car/${params.postid}`).then((res) => {return res.data})
     setonedata(response)
     
 

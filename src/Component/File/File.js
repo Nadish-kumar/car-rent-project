@@ -7,6 +7,64 @@ import axios from "axios"
 
 
 const File = () => {
+  const [imageurl, setimageurl] = useState(null);
+  const [imageurl2, setimageurl2] = useState(null);
+  const [imageurl3, setimageurl3] = useState(null);
+
+  const getimgaeurl = async () => {
+    var file = document.getElementById("liscence").files;
+    let file11 = new Promise((resolve, reject) => {
+      var storageRef = firebase.storage().ref("user/" + file[0].name);
+      storageRef.put(file[0]).then(function (snapshot) {
+        storageRef.getDownloadURL().then(function (url) {
+          //img download link ah ketakiradhu
+          setTimeout(() => resolve(url), 1000);
+        });
+      });
+    });
+    var imgurl = await file11;
+    console.log(imgurl)
+    setimageurl(imgurl);
+   
+  };
+  console.log(imageurl)
+
+  const getimgaeurl2 = async () => {
+    var file = document.getElementById("pic").files;
+    let file11 = new Promise((resolve, reject) => {
+      var storageRef = firebase.storage().ref("user/" + file[0].name);
+      storageRef.put(file[0]).then(function (snapshot) {
+        storageRef.getDownloadURL().then(function (url) {
+          //img download link ah ketakiradhu
+          setTimeout(() => resolve(url), 1000);
+        });
+      });
+    });
+    var imgurl = await file11;
+    console.log(imgurl)
+    setimageurl3(imgurl);
+   
+  };
+  console.log(imageurl3)
+
+  const getimgaeurl3 = async () => {
+    var file = document.getElementById("aadhar").files;
+    let file11 = new Promise((resolve, reject) => {
+      var storageRef = firebase.storage().ref("user/" + file[0].name);
+      storageRef.put(file[0]).then(function (snapshot) {
+        storageRef.getDownloadURL().then(function (url) {
+          //img download link ah ketakiradhu
+          setTimeout(() => resolve(url), 1000);
+        });
+      });
+    });
+    var imgurl = await file11;
+    console.log(imgurl)
+    setimageurl(imgurl);
+   
+  };
+  console.log(imageurl)
+
     
     var totalref = sessionStorage.getItem("total")
     console.log(totalref)
@@ -20,8 +78,17 @@ const File = () => {
       document.body.appendChild(script);
     }, [])
     
+   var userid = sessionStorage.getItem("userid")
+    const payAmount =async () => {
+    var data = {
+      liscence:imageurl,
+      aadhar:imageurl2,
+      pic:imageurl3,
+      userid:userid,
+     }
+     var response = await axios.post("http://localhost:8001/file",data).then((res) => { return res.data})
+     console.log(response) 
 
-    const payAmount = () => {
         axios
           .post("http://localhost:8001/razorpay/payment", {
             amount: totalref,
@@ -83,11 +150,11 @@ const File = () => {
             <div className='col-md-6'>
                 <h1>Fill your Details</h1>
                 <label className='repheading'>Upload your Liscence</label>
-                <input type="file" className='form-control' />
+                <input type="file" className='form-control' id="liscence" onChange={getimgaeurl} />
                 <label className='repheading'>Upload your Aadhar</label>
-                <input type="file" className='form-control' />
+                <input type="file" className='form-control' id="aadhar" onChange={getimgaeurl2} />
                 <label className='repheading'>Upload your Photo</label>
-                <input type="file" className='form-control' />
+                <input type="file" className='form-control' id="pic"  onChange={getimgaeurl3}/>
                 <button className='btn btn-success mt-3' onClick={payAmount}>Pay {totalref}</button>
             </div>
             <div className='col-md-3'>

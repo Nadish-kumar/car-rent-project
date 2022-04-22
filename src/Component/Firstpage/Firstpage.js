@@ -11,7 +11,7 @@ const Firstpage = () => {
   }, [])
 
   const getalldata = async() => {
-    var response = await axios.get("http://localhost:5000/car").then((res) => { return res.data})
+    var response = await axios.get("http://localhost:8001/car").then((res) => { return res.data})
     console.log(response)
     setcar(response)
   }
@@ -23,10 +23,10 @@ const Firstpage = () => {
            car.length !== 0 ? car.map((item,index) => (
             <div className='col-md-4' key={index}>
             <div class="card">
-                  <img src="..." class="card-img-top" alt="..." />
+                  <img src={item.img} class="card-img-top" alt="..." />
                      <div class="card-body">
                 <h5 class="card-title">{item.brand}</h5>
-               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+               <p class="card-text">{item.desc}</p>
                <Link
             to={{ pathname: `/cart/${item.postid}` }}
             style={{ color: "white", textDecoration:"none" }}

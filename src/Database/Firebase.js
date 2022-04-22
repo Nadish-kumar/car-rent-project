@@ -11,8 +11,6 @@ import firebase from "firebase";
       };
 
 
-firebase.initializeApp(firebaseConfig);
-var auth = firebase.auth();
-var storage = firebase.storage();
-
-export { auth, firebase, storage };
+      firebase.initializeApp(firebaseConfig);
+      var auth = firebase.auth();
+      export { auth, firebase };

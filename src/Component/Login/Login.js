@@ -6,6 +6,10 @@ import { Modal } from "@material-ui/core";
 import { Typography, Box, TextField, Button } from "@material-ui/core";
 import { useState } from "react";
 import {Link} from "react-router-dom"
+import { useFormik } from "formik";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { firebase, auth } from "../../Database/Firebase";
 
 
 const style = {
@@ -28,6 +32,59 @@ const Login = () => {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
   const handleopen = () => setOpen(true)
+  const [otp, setotp] = useState("");
+  const [final, setfinal] = useState("");
+  const [uservalue, setuservalue] = useState("");
+  const navigate = useNavigate();
+
+  const formik = useFormik({
+    initialValues: {
+      phone: '',
+
+    },
+    onSubmit:async values => {
+    
+      var user = await axios
+      .get("http://localhost:8001/user")
+      .then((res) => {
+        return res.data;
+      });
+    const checkuser = await user.filter((data) => {
+      return data.phone === parseInt(values.phone);
+    });
+    if (checkuser.length !== 0) {
+      setuservalue(checkuser[0]);
+      var finalnumber = "+91" + values.phone;
+      let verify = new firebase.auth.RecaptchaVerifier("recaptcha-container");
+      auth
+        .signInWithPhoneNumber(finalnumber, verify)
+        .then((result) => {
+          setfinal(result);
+          alert("code sent");
+          setOpen(true);
+        })
+        .catch((err) => {
+          alert(err);
+          window.location.reload();
+        });
+    } else {
+      alert("Not Valid User..please Register");
+    }
+    },
+  });
+  const ValidateOtp = () => {
+    if (otp === null || final === null) return;
+    final
+      .confirm(otp)
+      .then((result) => {
+        alert("login successfully");
+        sessionStorage.setItem("userid", uservalue._id);
+        navigate("/product");
+      })
+      .catch((err) => {
+        alert("Wrong code");
+      });
+  };
 
 
   return (
@@ -52,10 +109,12 @@ const Login = () => {
              <div className='col-md-4'></div>
            </div>
            <div className='row'>
+             <form onSubmit={formik.handleSubmit} >
              <div className='col-md-3'></div>
              <div className='col-md-6 input-group  input__field'>
-               <input type="number" className="form-control" placeholder='Phone Number' />
-               <button className='btn btn-primary' onClick={handleopen}>Send Otp</button>
+               <input type="number" className="form-control" placeholder='Phone Number'   onChange={formik.handleChange}
+         value={formik.values.phone} name="phone" />
+               <button className='btn btn-primary' type="submit" >Send Otp</button>
 
                <div>
                 <Modal
@@ -78,9 +137,9 @@ const Login = () => {
                       id="standard-basic"
                       variant="standard"
                       className="otp__number"
-                      // onChange={(e) => {
-                      //   setotp(e.target.value);
-                      // }}
+                      onChange={(e) => {
+                        setotp(e.target.value);
+                      }}
                     />
                     <Typography
                       id="modal-modal-description"
@@ -93,22 +152,31 @@ const Login = () => {
                     <Button
                       variant="contained"
                       className="otp__button"
-                    
+                      onClick={ValidateOtp}
                     >
                       Login
                     </Button>
                   </Box>
                 </Modal>
               </div>
-
-             </div>
-             <div className='col-md-3'></div>
            </div>
-           <Link to="/sign">
+           <div className='row'>
+                <div className='col-md-3'></div>
+                <div className='col-md-6'>
+                <div id="recaptcha-container"></div>
+                </div>
+                <div className='col-md-3'></div>
+
+              </div>
+             </form>
+             <div className='col-md-3'></div>
+
+           </div>
+          
            <div className='button'>
              <button className='btn__lo'>Register Now</button>
            </div>
-           </Link>
+         
         </div>
       </div>
     </div>
