@@ -1,0 +1,15 @@
+.repbody {
+    margin-top: 100px;
+}
+
+.repheading {
+    margin-top: 20px;
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.vertical__img {
+    width: 100%;
+    height: 100%;
+}

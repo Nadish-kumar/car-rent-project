@@ -1,0 +1,42 @@
+.bg__image{
+    background: url("../../Assest/Img/car4.webp");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    box-shadow:0 0 0 2000px rgba(0, 0, 0, 0.5) ;
+}
+.home__heading{
+    color: grey;
+    margin-top: 20px;
+}
+.button__rip{
+    display: flex;
+    flex-direction: column;
+}
+.button__rip{
+ border: none;
+ padding: 8px 40px;
+ margin-top: 20px;
+ font-size: 20px;
+ border-radius: 15px;
+ background-color: #f73033;
+ color: white;
+ text-decoration: none !important;
+  
+}
+.button__rip1{
+    border: none;
+    padding: 8px 40px;
+    margin-top: 20px;
+    font-size: 20px;
+    border-radius: 15px;
+    background-color: #404040;
+    color: white;
+     
+   }
+.btn__rep{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
