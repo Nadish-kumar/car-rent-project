@@ -4,7 +4,6 @@ import car1 from "../../Assest/Img/vertical banner.jpg"
 import car2 from "../../Assest/Img/banner3.jpg"
 import axios from "axios"
 import { firebase } from "../../Database/Firebase";
-
 import { useState } from 'react';
 
 const Adminhome = () => {

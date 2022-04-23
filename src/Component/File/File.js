@@ -4,18 +4,18 @@ import car1 from "../../Assest/Img/vertical banner.jpg"
 import car2 from "../../Assest/Img/banner3.jpg"
 import { useState,useEffect } from 'react'
 import axios from "axios"
-import {firebase} from "../../Database/Firebase"
+import { firebase } from "../../Database/Firebase"
 
 
 const File = () => {
   const [imageurl, setimageurl] = useState(null);
-  const [imageurl2, setimageurl2] = useState(null);
-  const [imageurl3, setimageurl3] = useState(null);
+  const [imageurl22, setimageurl22] = useState(null);
+  const [imageurl33, setimageurl33] = useState(null);
 
   const getimgaeurl = async () => {
     var file = document.getElementById("liscence").files;
     let file11 = new Promise((resolve, reject) => {
-      var storageRef = firebase.storage().ref("user/" + file[0].name);
+      var storageRef = firebase.storage().ref("profile/" + file[0].name);
       storageRef.put(file[0]).then(function (snapshot) {
         storageRef.getDownloadURL().then(function (url) {
           //img download link ah ketakiradhu
@@ -30,10 +30,10 @@ const File = () => {
   };
   console.log(imageurl)
 
-  const getimgaeurl2 = async () => {
+  const getimgaeurl22 = async () => {
     var file = document.getElementById("aadhar").files;
     let file11 = new Promise((resolve, reject) => {
-      var storageRef = firebase.storage().ref("user/" + file[0].name);
+      var storageRef = firebase.storage().ref("profile/" + file[0].name);
       storageRef.put(file[0]).then(function (snapshot) {
         storageRef.getDownloadURL().then(function (url) {
           //img download link ah ketakiradhu
@@ -43,12 +43,12 @@ const File = () => {
     });
     var imgurl = await file11;
     console.log(imgurl)
-    setimageurl2(imgurl);
+    setimageurl22(imgurl);
    
   };
-  console.log(imageurl3)
+  console.log(imageurl22)
 
-  const getimgaeurl3 = async () => {
+  const getimgaeurl33 = async () => {
     var file = document.getElementById("pic").files;
     let file11 = new Promise((resolve, reject) => {
       var storageRef = firebase.storage().ref("user/" + file[0].name);
@@ -61,10 +61,10 @@ const File = () => {
     });
     var imgurl = await file11;
     console.log(imgurl)
-    setimageurl3(imgurl);
+    setimageurl33(imgurl);
    
   };
-  console.log(imageurl)
+  console.log(imageurl33)
 
     
     var totalref = sessionStorage.getItem("total")
@@ -101,8 +101,8 @@ const File = () => {
       const getready = async() => {
         var filedetailes = {
           liscence:imageurl,
-          aadhar:imageurl2,
-          pic:imageurl3,
+          aadhar:imageurl22,
+          pic:imageurl33,
           userid:userid,
          }
          console.log(filedetailes)
@@ -157,9 +157,9 @@ const File = () => {
                 <label className='repheading'>Upload your Liscence</label>
                 <input type="file" className='form-control' id="liscence" onChange={getimgaeurl} />
                 <label className='repheading'>Upload your Aadhar</label>
-                <input type="file" className='form-control' id="aadhar" onChange={getimgaeurl2} />
+                <input type="file" className='form-control' id="aadhar" onChange={getimgaeurl22} />
                 <label className='repheading'>Upload your Photo</label>
-                <input type="file" className='form-control' id="pic"  onChange={getimgaeurl3}/>
+                <input type="file" className='form-control' id="pic"  onChange={getimgaeurl33}/>
                 <button className='btn btn-success mt-3' onClick={payAmount}>Pay {totalref}</button>
             </div>
             <div className='col-md-3'>
