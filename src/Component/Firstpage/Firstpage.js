@@ -27,6 +27,7 @@ const Firstpage = () => {
                      <div class="card-body">
                 <h5 class="card-title">{item.brand}</h5>
                <p class="card-text">{item.desc}</p>
+               <p class="card-text">{item.phone}</p>
                <Link
             to={{ pathname: `/cart/${item.postid}` }}
             style={{ color: "white", textDecoration:"none" }}

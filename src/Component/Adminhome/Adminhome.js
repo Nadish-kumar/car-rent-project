@@ -101,7 +101,7 @@ const Adminhome = () => {
                 <label className='repheading'>Rent for one day</label>
                 <input type="number" className="form-control"  id="amount" name="amount"/>
                 
-                <label className='repheading'>Rent for one day</label>
+                <label className='repheading'>Mobile Number</label>
                 <input type="number" className="form-control"  id="phone" name="phone"/>
 
                 <label className='repheading'>Description about your car</label>
