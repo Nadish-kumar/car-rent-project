@@ -5,9 +5,11 @@ import car2 from "../../Assest/Img/banner3.jpg"
 import { useState,useEffect } from 'react'
 import axios from "axios"
 import { firebase } from "../../Database/Firebase"
+import { useNavigate } from 'react-router-dom'
 
 
 const File = () => {
+  const navigate = useNavigate();
   const [imageurl, setimageurl] = useState(null);
   const [imageurl22, setimageurl22] = useState(null);
   const [imageurl33, setimageurl33] = useState(null);
@@ -122,7 +124,7 @@ const File = () => {
           handler: async function (response) {
             console.log(response);
             alert("Your car is Booked");
-    
+            navigate("/product")
             // const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
             //   response;
             // await axios
