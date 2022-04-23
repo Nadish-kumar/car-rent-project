@@ -28,7 +28,7 @@ function App() {
           <Route path="/product" element={<Firstpage />} />
           <Route path="/adminhome" element={<Adminhome />} />
           <Route path="/cart/:postid" element={<Cart/>} />
-          {/* <Route path="/file" element={<File/>} /> */}
+          <Route path="/file" element={<File/>} />
   
     </Routes>
     </BrowserRouter>
