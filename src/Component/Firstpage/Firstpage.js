@@ -11,7 +11,7 @@ const Firstpage = () => {
   }, [])
 
   const getalldata = async() => {
-    var response = await axios.get("http://localhost:8001/car").then((res) => { return res.data})
+    var response = await axios.get("https://car-rent-backend.herokuapp.com/car").then((res) => { return res.data})
     console.log(response)
     setcar(response)
   }

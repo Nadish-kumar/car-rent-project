@@ -45,7 +45,7 @@ const Login = () => {
     onSubmit:async values => {
     
       var user = await axios
-      .get("http://localhost:8001/user")
+      .get("https://car-rent-backend.herokuapp.com/user")
       .then((res) => {
         return res.data;
       });

@@ -4,6 +4,7 @@ import car1 from "../../Assest/Img/vertical banner.jpg"
 import car2 from "../../Assest/Img/banner3.jpg"
 import { useState,useEffect } from 'react'
 import axios from "axios"
+import {firebase} from "../../Database/Firebase"
 
 
 const File = () => {
@@ -30,6 +31,24 @@ const File = () => {
   console.log(imageurl)
 
   const getimgaeurl2 = async () => {
+    var file = document.getElementById("aadhar").files;
+    let file11 = new Promise((resolve, reject) => {
+      var storageRef = firebase.storage().ref("user/" + file[0].name);
+      storageRef.put(file[0]).then(function (snapshot) {
+        storageRef.getDownloadURL().then(function (url) {
+          //img download link ah ketakiradhu
+          setTimeout(() => resolve(url), 1000);
+        });
+      });
+    });
+    var imgurl = await file11;
+    console.log(imgurl)
+    setimageurl2(imgurl);
+   
+  };
+  console.log(imageurl3)
+
+  const getimgaeurl3 = async () => {
     var file = document.getElementById("pic").files;
     let file11 = new Promise((resolve, reject) => {
       var storageRef = firebase.storage().ref("user/" + file[0].name);
@@ -43,24 +62,6 @@ const File = () => {
     var imgurl = await file11;
     console.log(imgurl)
     setimageurl3(imgurl);
-   
-  };
-  console.log(imageurl3)
-
-  const getimgaeurl3 = async () => {
-    var file = document.getElementById("aadhar").files;
-    let file11 = new Promise((resolve, reject) => {
-      var storageRef = firebase.storage().ref("user/" + file[0].name);
-      storageRef.put(file[0]).then(function (snapshot) {
-        storageRef.getDownloadURL().then(function (url) {
-          //img download link ah ketakiradhu
-          setTimeout(() => resolve(url), 1000);
-        });
-      });
-    });
-    var imgurl = await file11;
-    console.log(imgurl)
-    setimageurl(imgurl);
    
   };
   console.log(imageurl)
@@ -80,23 +81,16 @@ const File = () => {
     
    var userid = sessionStorage.getItem("userid")
     const payAmount =async () => {
-    var data = {
-      liscence:imageurl,
-      aadhar:imageurl2,
-      pic:imageurl3,
-      userid:userid,
-     }
-     var response = await axios.post("http://localhost:8001/file",data).then((res) => { return res.data})
-     console.log(response) 
-
-        axios
-          .post("http://localhost:8001/razorpay/payment", {
+  
+      axios
+          .post("https://car-rent-backend.herokuapp.com/razorpay/payment", {
             amount: totalref,
           })
           .then(async (res) => {
             if (res.data.status === "success") {
               const id = await res.data.sub.id;
               pay(id, totalref);
+              getready()
             }
           })
           .catch((error) => {
@@ -104,6 +98,17 @@ const File = () => {
             }
           });
       };
+      const getready = async() => {
+        var filedetailes = {
+          liscence:imageurl,
+          aadhar:imageurl2,
+          pic:imageurl3,
+          userid:userid,
+         }
+         console.log(filedetailes)
+         var postdata = await axios.post("https://car-rent-backend.herokuapp.com/report",filedetailes).then((res) => { return res.data})
+         console.log(postdata) 
+      }
 
       const pay = (id, amount) => {
         console.log(id, amount);

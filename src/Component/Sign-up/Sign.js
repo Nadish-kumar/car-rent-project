@@ -47,7 +47,7 @@ const Sign = () => {
       // alert(JSON.stringify(values, null, 2));
       setvalues(values)
       var user = await axios
-      .get("http://localhost:8001/user")
+      .get("https://car-rent-backend.herokuapp.com/user")
       .then((res) => {
         return res.data;
       });
@@ -83,7 +83,7 @@ const Sign = () => {
       .then(async (result) => {
         alert("success");
         var usercreate = await axios
-          .post("http://localhost:8001/user", userdata)
+          .post("https://car-rent-backend.herokuapp.com/user", userdata)
           .then((res) => {
             return res.data;
           });

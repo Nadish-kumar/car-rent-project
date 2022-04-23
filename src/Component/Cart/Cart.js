@@ -15,7 +15,7 @@ const Cart = () => {
   }, [])
 
   const getonedata =  async() => {
-    var response  = await axios.get(`http://localhost:8001/car/${params.postid}`).then((res) => {return res.data})
+    var response  = await axios.get(`https://car-rent-backend.herokuapp.com/car/${params.postid}`).then((res) => {return res.data})
     setonedata(response)
     
 
@@ -40,7 +40,7 @@ const Cart = () => {
           <table class="table table-striped">
              <thead>
                <tr>
-                 <th>S.no</th>
+                 
                  <th>Model</th>
                  <th>Brand</th>
                  <th>Days</th>
@@ -52,15 +52,15 @@ const Cart = () => {
                {
                  onedata.length != 0 ? onedata.map((item,index) => (
                   <tr>
-                  <th>{index}</th>
+              
                   <th>{item.model}</th>
                   <th>{item.brand}</th>
-                  <th><input type="number" defaultValue="1" id="brand" onChange={getquanity}/></th>
+                  <th><input type="number" id="brand" onChange={getquanity}/></th>
                   <th>{item.amount}</th>
                   <th>{total}</th>
                 </tr>
                  )) : null
-               }0
+               }
            
              </tbody>
          </table>

@@ -4,7 +4,7 @@ import car1 from "../../Assest/Img/vertical banner.jpg"
 import car2 from "../../Assest/Img/banner3.jpg"
 import axios from "axios"
 import { firebase } from "../../Database/Firebase";
-import {storage} from "../../Database/Firebase"
+
 import { useState } from 'react';
 
 const Adminhome = () => {
@@ -58,6 +58,7 @@ const Adminhome = () => {
         var brand = document.getElementById("brand").value
         var amount = document.getElementById("amount").value
         var desc = document.getElementById("desc").value
+        var phone = document.getElementById("phone").value
       var data = {
           model : model,
           brand: brand,
@@ -66,10 +67,11 @@ const Adminhome = () => {
           adminid : adminid,
           rc : imageurl33,
           desc:desc,
-          postid:postid
+          postid:postid,
+          phone:phone
        }
-       var response = await axios.post("http://localhost:8001/car",data).then((res) => { return res.data})
-       console.log(response)
+       var response = await axios.post("https://car-rent-backend.herokuapp.com/car",data).then((res) => { return res.data})
+       alert("your car is posted")
     }
 
   return (
@@ -99,9 +101,12 @@ const Adminhome = () => {
          name="rc" />
                 <label className='repheading'>Rent for one day</label>
                 <input type="number" className="form-control"  id="amount" name="amount"/>
+                
+                <label className='repheading'>Rent for one day</label>
+                <input type="number" className="form-control"  id="phone" name="phone"/>
 
                 <label className='repheading'>Description about your car</label>
-                <input type="number" className="form-control"  id="desc" name="desc"/>
+                <input type="text" className="form-control"  id="desc" name="desc"/>
 
                 <button className='btn btn-success mt-3 btn-lg' onClick={getpostdata}>Submit</button>
              

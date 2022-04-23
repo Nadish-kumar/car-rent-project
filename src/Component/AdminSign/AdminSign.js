@@ -50,7 +50,7 @@ const AdminSign = () => {
       // alert(JSON.stringify(values, null, 2));
       setvalues(values)
       var user = await axios
-      .get("http://localhost:8001/admin")
+      .get("https://car-rent-backend.herokuapp.com/admin")
       .then((res) => {
         return res.data;
       });
@@ -86,7 +86,7 @@ const AdminSign = () => {
       .then(async (result) => {
         alert("success");
         var usercreate = await axios
-          .post("http://localhost:8001/admin", userdata)
+          .post("https://car-rent-backend.herokuapp.com/admin", userdata)
           .then((res) => {
             return res.data;
           });

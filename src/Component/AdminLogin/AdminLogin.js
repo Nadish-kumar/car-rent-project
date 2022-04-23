@@ -44,7 +44,7 @@ const AdminLogin = () => {
     onSubmit:async values => {
     
       var user = await axios
-      .get("http://localhost:8001/admin")
+      .get("https://car-rent-backend.herokuapp.com/admin")
       .then((res) => {
         return res.data;
       });
