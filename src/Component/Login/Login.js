@@ -174,7 +174,9 @@ const Login = () => {
            </div>
           
            <div className='button'>
+             <Link to="/sign">
              <button className='btn__lo'>Register Now</button>
+             </Link>
            </div>
          
         </div>

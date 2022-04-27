@@ -173,7 +173,9 @@ const AdminLogin = () => {
          </div>
         
          <div className='button'>
+           <Link to="/admin-sign">
            <button className='btn__lo'>Register Now</button>
+           </Link>
          </div>
        
       </div>
